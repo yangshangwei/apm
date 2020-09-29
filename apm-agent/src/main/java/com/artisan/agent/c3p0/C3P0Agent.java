@@ -1,8 +1,7 @@
-package com.artisan.agent;
+package com.artisan.agent.c3p0;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -55,7 +54,6 @@ public class C3P0Agent {
         server.createContext("/", new HttpHandler());
         server.setExecutor(Executors.newCachedThreadPool());
         server.start();
-        System.out.println("Server is listening on port 7777");
     }
 
 
