@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class ApmAgent {
     public static void premain(String arg, Instrumentation instrumentation) {
-        System.out.println("====arg:" + arg);
+//        System.out.println("====arg:" + arg);
 //        Properties properties = new Properties();
         // 装载配置文件
 //        if (arg != null && !arg.trim().equals("")) {
@@ -68,8 +68,8 @@ public class ApmAgent {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("log----" + properties.getProperty("log"));
-        System.out.println("service.include----" + properties.getProperty("service.include"));
+//        System.out.println("log----" + properties.getProperty("log"));
+//        System.out.println("service.include----" + properties.getProperty("service.include"));
 
         return properties;
     }

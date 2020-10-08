@@ -4,6 +4,11 @@ import java.util.regex.Pattern;
 
 /**
  * 通配符，源码来自于jacoco 项目
+ * 支持   *    ？  &
+ *
+ * 配置说明  * 匹配全部   ？ 匹配一个字符    & 多个条件组合
+ * 比如 com.artisan.service.impl.* & com.artisan.service2.*
+ *
  */
 public  class WildcardMatcher {
 
