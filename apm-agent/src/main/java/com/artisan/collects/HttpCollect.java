@@ -48,6 +48,7 @@ public class HttpCollect extends AbstractByteTransformCollect implements ICollec
     public static HttpStatistics begin(Object args[]) {
         HttpStatistics httpStatistics = new HttpStatistics();
         httpStatistics.setBeginTime(System.currentTimeMillis());
+        // 采用适配器的方式 ，避免在tomcat下  agent【appLauncher装载】无法获取到HttpServletRequest【common加载】（classLoader机制）
         HttpServletRequestAdapter adapter = new HttpServletRequestAdapter(args[0]);
         httpStatistics.setUrl(adapter.getRequestURI());
         httpStatistics.setClientIp(adapter.getClientIp());
