@@ -1,6 +1,7 @@
 package com.artisan.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcStatistics extends BaseStatistics {
 	public Long begin;// 时间戳
@@ -18,8 +19,15 @@ public class JdbcStatistics extends BaseStatistics {
 	// 是否经过预处理
 	public String preman;
 
-	public ArrayList<ParamValues> params=new ArrayList();
+	public List<ParamValues> params=new ArrayList();
 
+	public List<ParamValues> getParams() {
+		return params;
+	}
+
+	public void setParams(List<ParamValues> params) {
+		this.params = params;
+	}
 
 	public JdbcStatistics() {
 

@@ -2,8 +2,10 @@ package com.artisan.collects;
 
 
 import com.artisan.ApmContext;
+import com.artisan.common.json.JsonWriter;
 import com.artisan.intf.ICollect;
 import com.artisan.model.JdbcStatistics;
+import com.artisan.utils.SplitUtils;
 import javassist.CtClass;
 import javassist.CtMethod;
 
@@ -14,6 +16,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.List;
 
 /**
  * jdbc 数据采集
@@ -94,7 +97,8 @@ public class JdbcCommonCollects extends AbstractByteTransformCollect implements 
     }
 
     public byte[] transform(ClassLoader loader, String className) throws Exception {
-        System.out.println("JDBC className:" + className);
+        // System.out.println("JDBC className:" + className);
+        // 如果更換數據庫，需要替換改類  這裡目前僅適配了MySQL
     	 if (!className.equals("com.mysql.cj.jdbc.NonRegisteringDriver")) {
              return null;
          }
@@ -164,6 +168,7 @@ public class JdbcCommonCollects extends AbstractByteTransformCollect implements 
         }
 
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
             boolean isTargetMethod = false;
             for (String agentm : prepared_statement_methods) {
                 if (agentm.equals(method.getName())) {
@@ -173,6 +178,13 @@ public class JdbcCommonCollects extends AbstractByteTransformCollect implements 
             }
             Object result = null;
             try {
+                // SQL的參數 輸出  TODO  只能输出一个，后面的会把前面的参数覆盖掉
+                if (args != null ){
+                    List<JdbcStatistics.ParamValues> paramValues = SplitUtils.split2Parts(args, 2);
+                    jdbcStat.setParams(paramValues);
+                    //System.out.println("KKKKKKK:" + JsonWriter.objectToJson(jdbcStat));
+                }
+
                 result = method.invoke(statement, args);
             } catch (Throwable e) {
                 if (isTargetMethod) {
