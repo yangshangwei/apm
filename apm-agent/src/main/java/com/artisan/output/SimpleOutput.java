@@ -15,7 +15,6 @@ public class SimpleOutput implements IOutput {
 
     public SimpleOutput(Properties properties) {
         String logValue = properties.getProperty("log").trim();
-        System.out.println("logValue:" + logValue);
         try {
             fileWriter =
                     new FileWriter(openFile(logValue), true);

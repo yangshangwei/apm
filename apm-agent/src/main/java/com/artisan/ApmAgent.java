@@ -15,10 +15,9 @@ import java.util.Properties;
 public class ApmAgent {
     public static void premain(String arg, Instrumentation instrumentation) {
         System.out.println("====arg:" + arg);
-        Properties properties = new Properties();
+//        Properties properties = new Properties();
         // 装载配置文件
 //        if (arg != null && !arg.trim().equals("")) {
-            // jvm参数配置
 //            try {
 //                properties.load(new ByteArrayInputStream(
 //                        arg.replaceAll(",", "\n").getBytes()));
